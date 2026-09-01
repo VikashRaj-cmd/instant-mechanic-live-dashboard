@@ -33,3 +33,8 @@ Thumbs.db
 # Temporary files
 scratch/
 tmp/
+
+# Local Planning & Stage Guides (Exclude from GitHub submission)
+PROJECT_STAGES_PLAN.md
+MANUAL_STEPS_GUIDE.md
+
