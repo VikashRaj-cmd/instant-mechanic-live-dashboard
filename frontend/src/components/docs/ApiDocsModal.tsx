@@ -79,24 +79,25 @@ export const ApiDocsModal: React.FC<ApiDocsModalProps> = ({ isOpen, onClose }) =
 
         {/* Server Endpoint URLs */}
         <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-2 text-xs">
-          <div className="flex items-center justify-between text-slate-300 font-mono">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-slate-300 font-mono">
             <span className="flex items-center gap-2">
-              <Globe className="w-4 h-4 text-emerald-400" /> Base URL:
+              <Globe className="w-4 h-4 text-emerald-400" /> Base REST API:
             </span>
-            <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-              http://localhost:5000/api
+            <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/30 text-[11px] truncate">
+              {import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}
             </span>
           </div>
 
-          <div className="flex items-center justify-between text-slate-300 font-mono">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-slate-300 font-mono">
             <span className="flex items-center gap-2">
               <Terminal className="w-4 h-4 text-purple-400" /> WebSocket Gateway:
             </span>
-            <span className="text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/30">
-              ws://localhost:5000 (Socket.io v4.7)
+            <span className="text-purple-400 font-bold bg-purple-500/10 px-2.5 py-1 rounded border border-purple-500/30 text-[11px] truncate">
+              {import.meta.env.VITE_SOCKET_URL || 'ws://localhost:5000'} (Socket.io v4.7)
             </span>
           </div>
         </div>
+
 
         {/* Endpoints List */}
         <div className="space-y-4">

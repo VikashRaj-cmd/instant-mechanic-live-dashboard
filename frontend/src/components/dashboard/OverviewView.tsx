@@ -166,45 +166,46 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
           <div className="space-y-3">
             {lastNotificationMsg ? (
-              <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl flex items-center justify-between text-xs text-blue-300">
+              <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl flex items-center justify-between text-xs text-blue-300 hover:bg-blue-500/20 transition-all cursor-pointer">
                 <span className="font-semibold">{lastNotificationMsg}</span>
                 <span className="text-[10px] text-blue-400">Just now</span>
               </div>
             ) : null}
 
-            <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-xl flex items-center justify-between text-xs">
+            <div className="p-3 bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 rounded-xl flex items-center justify-between text-xs transition-all duration-200 cursor-pointer group">
               <div className="flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
                 <div>
-                  <p className="font-semibold text-slate-200">Booking #BK-10014 → Mechanic On The Way</p>
+                  <p className="font-semibold text-slate-200 group-hover:text-blue-400 transition-colors">Booking #BK-10014 → Mechanic On The Way</p>
                   <p className="text-[10px] text-slate-400">Carlos Rodriguez dispatched to Mission District, SF</p>
                 </div>
               </div>
               <span className="text-[10px] text-slate-500">2 mins ago</span>
             </div>
 
-            <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-xl flex items-center justify-between text-xs">
+            <div className="p-3 bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 rounded-xl flex items-center justify-between text-xs transition-all duration-200 cursor-pointer group">
               <div className="flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-blue-500" />
+                <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
                 <div>
-                  <p className="font-semibold text-slate-200">Booking #BK-10012 → Completed</p>
+                  <p className="font-semibold text-slate-200 group-hover:text-blue-400 transition-colors">Booking #BK-10012 → Completed</p>
                   <p className="text-[10px] text-slate-400">Synthetic Oil Change • $85 Paid</p>
                 </div>
               </div>
               <span className="text-[10px] text-slate-500">8 mins ago</span>
             </div>
 
-            <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-xl flex items-center justify-between text-xs">
+            <div className="p-3 bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 rounded-xl flex items-center justify-between text-xs transition-all duration-200 cursor-pointer group">
               <div className="flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span className="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" />
                 <div>
-                  <p className="font-semibold text-slate-200">Booking #BK-10015 → Assigned to David Chen</p>
+                  <p className="font-semibold text-slate-200 group-hover:text-blue-400 transition-colors">Booking #BK-10015 → Assigned to David Chen</p>
                   <p className="text-[10px] text-slate-400">Full Engine Diagnostic • Tesla Model 3</p>
                 </div>
               </div>
               <span className="text-[10px] text-slate-500">14 mins ago</span>
             </div>
           </div>
+
         </div>
 
         {/* Fleet Availability Quick Meter */}

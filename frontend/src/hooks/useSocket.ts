@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { Booking } from '../types';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 
+  (typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:5000` : 'http://localhost:5000');
 
 export const useSocket = (onBookingUpdated?: (updatedBooking: Booking, message: string) => void) => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
