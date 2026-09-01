@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Layout } from './components/layout/Layout';
 import { OverviewView } from './components/dashboard/OverviewView';
 import { AnalyticsView } from './components/dashboard/AnalyticsView';
+import { BookingsView } from './components/bookings/BookingsView';
+import { MechanicsView } from './components/mechanics/MechanicsView';
 import { useSocket } from './hooks/useSocket';
 import { fetchDashboardData } from './services/api';
 import { DashboardResponse } from './types';
@@ -28,7 +30,7 @@ export default function App() {
   }, []);
 
   const { isConnected, lastNotification } = useSocket((_updatedBooking, _message) => {
-    // Soft update metrics on real-time event
+    // Soft reload overview stats on WebSocket update
     loadData();
   });
 
@@ -57,23 +59,17 @@ export default function App() {
       )}
 
       {activeTab === 'bookings' && (
-        <div className="p-8 text-center glass-panel rounded-2xl border border-slate-800">
-          <h2 className="text-lg font-bold text-slate-200">Bookings Table View</h2>
-          <p className="text-xs text-slate-400 mt-1">Coming up in Stage 6 implementation</p>
-        </div>
+        <BookingsView onRefreshTriggered={loadData} />
       )}
 
       {activeTab === 'mechanics' && (
-        <div className="p-8 text-center glass-panel rounded-2xl border border-slate-800">
-          <h2 className="text-lg font-bold text-slate-200">Mechanics Fleet Roster View</h2>
-          <p className="text-xs text-slate-400 mt-1">Coming up in Stage 6 implementation</p>
-        </div>
+        <MechanicsView />
       )}
 
       {activeTab === 'map' && (
-        <div className="p-8 text-center glass-panel rounded-2xl border border-slate-800">
-          <h2 className="text-lg font-bold text-slate-200">Live Location Map View</h2>
-          <p className="text-xs text-slate-400 mt-1">Coming up in Stage 7 implementation</p>
+        <div className="p-12 text-center glass-panel rounded-2xl border border-slate-800">
+          <h2 className="text-lg font-bold text-slate-200">Live Mechanics Location Map</h2>
+          <p className="text-xs text-slate-400 mt-1">Coming up in Stage 7 Bonus Enhancements</p>
         </div>
       )}
     </Layout>
