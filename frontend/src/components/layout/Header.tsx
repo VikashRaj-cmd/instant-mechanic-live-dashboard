@@ -7,6 +7,7 @@ interface HeaderProps {
   lastNotificationMsg?: string | null;
   darkMode: boolean;
   setDarkMode: (val: boolean) => void;
+  onOpenApiDocs?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -14,8 +15,10 @@ export const Header: React.FC<HeaderProps> = ({
   onRefresh,
   lastNotificationMsg,
   darkMode,
-  setDarkMode
+  setDarkMode,
+  onOpenApiDocs
 }) => {
+
   return (
     <header className="sticky top-0 z-30 h-16 bg-[#0f172a]/80 backdrop-blur-md border-b border-slate-800/80 px-6 flex items-center justify-between">
       {/* Search Input Bar */}
@@ -59,7 +62,19 @@ export const Header: React.FC<HeaderProps> = ({
           <RefreshCw className="w-4 h-4" />
         </button>
 
+        {/* API Docs Specification Button */}
+        {onOpenApiDocs && (
+          <button
+            onClick={onOpenApiDocs}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/30 rounded-lg hover:bg-blue-500/20 transition-all"
+            title="Open API Specification"
+          >
+            <ShieldCheck className="w-3.5 h-3.5" /> API Docs
+          </button>
+        )}
+
         {/* Dark/Light Mode Toggle */}
+
         <button
           onClick={() => setDarkMode(!darkMode)}
           className="p-2 text-slate-400 hover:text-white bg-slate-900/60 border border-slate-800 rounded-lg hover:bg-slate-800 transition-all"

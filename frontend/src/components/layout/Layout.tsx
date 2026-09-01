@@ -9,6 +9,7 @@ interface LayoutProps {
   isConnected: boolean;
   onRefresh: () => void;
   lastNotificationMsg?: string | null;
+  onOpenApiDocs?: () => void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -17,7 +18,8 @@ export const Layout: React.FC<LayoutProps> = ({
   setActiveTab,
   isConnected,
   onRefresh,
-  lastNotificationMsg
+  lastNotificationMsg,
+  onOpenApiDocs
 }) => {
   const [darkMode, setDarkMode] = useState<boolean>(true);
 
@@ -31,9 +33,11 @@ export const Layout: React.FC<LayoutProps> = ({
           lastNotificationMsg={lastNotificationMsg}
           darkMode={darkMode}
           setDarkMode={setDarkMode}
+          onOpenApiDocs={onOpenApiDocs}
         />
         <main className="flex-1 p-6 overflow-y-auto">{children}</main>
       </div>
     </div>
   );
 };
+

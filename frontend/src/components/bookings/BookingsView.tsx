@@ -12,10 +12,14 @@ import {
   Calendar,
   CheckCircle2,
   AlertTriangle,
-  Clock
+  Clock,
+  Download,
+  Eye
 } from 'lucide-react';
 import { Booking, BookingStatus } from '../../types';
 import { fetchBookings, updateBookingStatus } from '../../services/api';
+import { exportBookingsToCSV } from '../../utils/csvExport';
+import { BookingDetailModal } from '../modals/BookingDetailModal';
 
 interface BookingsViewProps {
   onRefreshTriggered?: () => void;
@@ -33,6 +37,8 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ onRefreshTriggered }
   const [totalPages, setTotalPages] = useState<number>(1);
   const [totalBookings, setTotalBookings] = useState<number>(0);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+
 
   const loadBookings = async () => {
     try {
@@ -169,8 +175,18 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ onRefreshTriggered }
             <ArrowUpDown className="w-3.5 h-3.5 text-blue-400" />
             <span>Sort: {sortBy === 'createdAt' ? 'Date' : 'Amount'} ({sortOrder.toUpperCase()})</span>
           </button>
+
+          {/* Export CSV Button */}
+          <button
+            onClick={() => exportBookingsToCSV(bookings)}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600/20 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-600/30 rounded-xl text-xs font-semibold transition-all"
+            title="Export Bookings to CSV"
+          >
+            <Download className="w-3.5 h-3.5" /> Export CSV
+          </button>
         </div>
       </div>
+
 
       {/* Bookings Table */}
       <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
@@ -207,11 +223,17 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ onRefreshTriggered }
                 </tr>
               ) : (
                 bookings.map((booking) => (
-                  <tr key={booking._id} className="hover:bg-slate-800/40 transition-colors group">
+                  <tr
+                    key={booking._id}
+                    onClick={() => setSelectedBooking(booking)}
+                    className="hover:bg-slate-800/60 transition-colors cursor-pointer group"
+                  >
                     {/* Booking ID */}
-                    <td className="py-3.5 px-4 font-mono font-bold text-blue-400">
+                    <td className="py-3.5 px-4 font-mono font-bold text-blue-400 flex items-center gap-1.5">
                       #{booking.bookingId}
+                      <Eye className="w-3 h-3 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </td>
+
 
                     {/* Customer */}
                     <td className="py-3.5 px-4">
@@ -323,6 +345,13 @@ export const BookingsView: React.FC<BookingsViewProps> = ({ onRefreshTriggered }
           </div>
         </div>
       </div>
+
+      {/* Booking Detail Modal */}
+      <BookingDetailModal
+        booking={selectedBooking}
+        onClose={() => setSelectedBooking(null)}
+      />
     </div>
   );
 };
+

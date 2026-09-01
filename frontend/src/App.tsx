@@ -4,6 +4,8 @@ import { OverviewView } from './components/dashboard/OverviewView';
 import { AnalyticsView } from './components/dashboard/AnalyticsView';
 import { BookingsView } from './components/bookings/BookingsView';
 import { MechanicsView } from './components/mechanics/MechanicsView';
+import { LiveMapView } from './components/map/LiveMapView';
+import { ApiDocsModal } from './components/docs/ApiDocsModal';
 import { useSocket } from './hooks/useSocket';
 import { fetchDashboardData } from './services/api';
 import { DashboardResponse } from './types';
@@ -12,6 +14,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [dashboardData, setDashboardData] = useState<DashboardResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isApiDocsOpen, setIsApiDocsOpen] = useState<boolean>(false);
 
   const loadData = async () => {
     try {
@@ -30,7 +33,6 @@ export default function App() {
   }, []);
 
   const { isConnected, lastNotification } = useSocket((_updatedBooking, _message) => {
-    // Soft reload overview stats on WebSocket update
     loadData();
   });
 
@@ -41,6 +43,7 @@ export default function App() {
       isConnected={isConnected}
       onRefresh={loadData}
       lastNotificationMsg={lastNotification?.message}
+      onOpenApiDocs={() => setIsApiDocsOpen(true)}
     >
       {activeTab === 'overview' && (
         <OverviewView
@@ -67,11 +70,14 @@ export default function App() {
       )}
 
       {activeTab === 'map' && (
-        <div className="p-12 text-center glass-panel rounded-2xl border border-slate-800">
-          <h2 className="text-lg font-bold text-slate-200">Live Mechanics Location Map</h2>
-          <p className="text-xs text-slate-400 mt-1">Coming up in Stage 7 Bonus Enhancements</p>
-        </div>
+        <LiveMapView />
       )}
+
+      {/* Swagger / OpenAPI Interactive Documentation Modal */}
+      <ApiDocsModal
+        isOpen={isApiDocsOpen}
+        onClose={() => setIsApiDocsOpen(false)}
+      />
     </Layout>
   );
 }
